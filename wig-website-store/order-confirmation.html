@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - LaBelle Wigs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            color: #000000;
+        }
+        header {
+            border-bottom: 1px solid #e5e7eb;
+            background: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .demo-banner {
+            background: #fff3cd;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            font-size: 0.8125rem;
+            color: #856404;
+            border-bottom: 1px solid #ffc107;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #000000;
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: #000000;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9375rem;
+        }
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        .nav-actions a {
+            color: #000000;
+            text-decoration: none;
+            font-size: 0.9375rem;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #dcfce7;
+            color: #166534;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 1.5rem;
+        }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+        .message {
+            color: #4b5563;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        .order-details {
+            background: #f9fafb;
+            padding: 1.25rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+        .order-details h2 {
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            text-align: center;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+        .detail-row span:first-child {
+            color: #6b7280;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.875rem 2rem;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            margin: 0 0.5rem;
+        }
+        .btn-primary {
+            background: #000000;
+            color: #ffffff;
+        }
+        .btn-primary:hover { background: #1a1a1a; }
+        .btn-secondary {
+            background: #ffffff;
+            color: #000000;
+            border: 2px solid #000000;
+        }
+        .btn-secondary:hover { background: #f9fafb; }
+        .buttons {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        footer {
+            background: #000000;
+            color: #9ca3af;
+            padding: 2rem 1rem;
+            text-align: center;
+            font-size: 0.875rem;
+            margin-top: 3rem;
+        }
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-banner">
+        <strong>DEMO:</strong> Website-Only Wig Store
+    </div>
+    
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">LaBelle Wigs</a>
+            <nav class="nav-links">
+                <a href="catalog.html">Shop All</a>
+                <a href="catalog.html?filter=straight">Straight</a>
+                <a href="catalog.html?filter=wave">Wavy</a>
+                <a href="catalog.html?filter=curly">Curly</a>
+                <a href="catalog.html?filter=bob">Bob</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="assistant.html">💬 Ask Assistant</a>
+                <a href="cart.html">🛒 Cart (<span id="cartCount">0</span>)</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="../index.html">All Demos</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="success-icon">✓</div>
+        <h1>Order Placed!</h1>
+        <p class="message">Thank you for your order. This is a demo order - no payment was processed.<br>We'll contact you soon to confirm delivery details.</p>
+        
+        <div class="order-details">
+            <h2>Order Information</h2>
+            <div class="detail-row">
+                <span>Order ID:</span>
+                <span id="orderId"></span>
+            </div>
+            <div class="detail-row">
+                <span>Status:</span>
+                <span>New (Demo)</span>
+            </div>
+            <div class="detail-row">
+                <span>Payment:</span>
+                <span>Demo - No payment taken</span>
+            </div>
+        </div>
+        
+        <div class="buttons">
+            <a href="catalog.html" class="btn btn-primary">Continue Shopping</a>
+            <a href="dashboard.html" class="btn btn-secondary">View in Dashboard</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="catalog.html">Shop</a>
+            <a href="assistant.html">Assistant</a>
+            <a href="cart.html">Cart</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="../index.html">All Demos</a>
+        </div>
+        <p>&copy; 2024 LaBelle Wigs. Premium Women's Wig Store Demo.</p>
+    </footer>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        document.getElementById('orderId').textContent = urlParams.get('order') || 'N/A';
+        
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('labelle_cart') || '[]');
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+        updateCartCount();
+    </script>
+</body>
+</html>

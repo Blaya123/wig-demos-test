@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - LaBelle Wigs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            color: #000000;
+        }
+        header {
+            border-bottom: 1px solid #e5e7eb;
+            background: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .demo-banner {
+            background: #fff3cd;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            font-size: 0.8125rem;
+            color: #856404;
+            border-bottom: 1px solid #ffc107;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #000000;
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: #000000;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9375rem;
+        }
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        .nav-actions a {
+            color: #000000;
+            text-decoration: none;
+            font-size: 0.9375rem;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        .page-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .page-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .demo-notice {
+            background: #e0f2fe;
+            border: 1px solid #7dd3fc;
+            padding: 0.875rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 0.875rem;
+            color: #075985;
+        }
+        .checkout-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+        .checkout-form {
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+        .form-section {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .form-section:last-of-type {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .form-section h2 {
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.625rem 0.875rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-family: inherit;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+        .order-summary {
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 1.25rem;
+            height: fit-content;
+        }
+        .order-summary h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        .summary-item {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .summary-item-image {
+            width: 60px;
+            height: 60px;
+            background: #f9fafb;
+            border-radius: 6px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .summary-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .summary-item-details {
+            flex: 1;
+            font-size: 0.8125rem;
+        }
+        .summary-item-details h4 {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+        .summary-item-details p {
+            color: #6b7280;
+        }
+        .summary-item-price {
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            color: #4b5563;
+        }
+        .summary-row.total {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #000000;
+            padding-top: 0.75rem;
+            border-top: 1px solid #e5e7eb;
+            margin-top: 0.75rem;
+        }
+        .place-order-btn {
+            width: 100%;
+            padding: 0.875rem;
+            background: #000000;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            margin-top: 1rem;
+        }
+        .place-order-btn:hover {
+            background: #1a1a1a;
+        }
+        footer {
+            background: #000000;
+            color: #9ca3af;
+            padding: 2rem 1rem;
+            text-align: center;
+            font-size: 0.875rem;
+            margin-top: 3rem;
+        }
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+        }
+        @media (max-width: 968px) {
+            .checkout-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 640px) {
+            .nav-links { display: none; }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-banner">
+        <strong>DEMO:</strong> Website-Only Wig Store - No real payment will be taken
+    </div>
+    
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">LaBelle Wigs</a>
+            <nav class="nav-links">
+                <a href="catalog.html">Shop All</a>
+                <a href="catalog.html?filter=straight">Straight</a>
+                <a href="catalog.html?filter=wave">Wavy</a>
+                <a href="catalog.html?filter=curly">Curly</a>
+                <a href="catalog.html?filter=bob">Bob</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="assistant.html">💬 Ask Assistant</a>
+                <a href="cart.html">🛒 Cart (<span id="cartCount">0</span>)</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="../index.html">All Demos</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Checkout</h1>
+        </div>
+
+        <div class="demo-notice">
+            <strong>Demo Checkout:</strong> This is for demonstration only. No real payment is being processed.
+        </div>
+
+        <div class="checkout-layout">
+            <div class="checkout-form">
+                <div class="form-section">
+                    <h2>Delivery Information</h2>
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" id="fullName" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Phone Number *</label>
+                            <input type="tel" id="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address *</label>
+                            <input type="email" id="email" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Delivery Address *</label>
+                        <textarea id="address" required placeholder="Enter full delivery address with city and state"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Payment Method</h2>
+                    <p style="color: #6b7280; font-size: 0.875rem;">Demo mode - No payment required. Order will be placed as a demo order.</p>
+                </div>
+            </div>
+
+            <div class="order-summary">
+                <h2>Order Summary</h2>
+                <div id="orderItems"></div>
+                <div style="margin-top: 1rem;">
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span id="subtotal">₦0</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Shipping</span>
+                        <span>₦0 (Demo)</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total</span>
+                        <span id="total">₦0</span>
+                    </div>
+                </div>
+                <button class="place-order-btn" onclick="placeOrder()">Place Order (Demo)</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="catalog.html">Shop</a>
+            <a href="assistant.html">Assistant</a>
+            <a href="cart.html">Cart</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="../index.html">All Demos</a>
+        </div>
+        <p>&copy; 2024 LaBelle Wigs. Premium Women's Wig Store Demo.</p>
+    </footer>
+
+    <script>
+        function formatPrice(price) {
+            return "₦" + price.toLocaleString();
+        }
+
+        function loadOrder() {
+            const cart = JSON.parse(localStorage.getItem('labelle_cart') || '[]');
+            updateCartCount();
+            
+            if (cart.length === 0) {
+                alert('Your cart is empty');
+                window.location.href = 'catalog.html';
+                return;
+            }
+            
+            let subtotal = 0;
+            const orderItemsDiv = document.getElementById('orderItems');
+            orderItemsDiv.innerHTML = cart.map(item => {
+                subtotal += item.price * item.quantity;
+                return `
+                    <div class="summary-item">
+                        <div class="summary-item-image">
+                            <img src="${item.image}" alt="${item.name}">
+                        </div>
+                        <div class="summary-item-details">
+                            <h4>${item.name}</h4>
+                            <p>${item.length}" • ${item.color} • Qty: ${item.quantity}</p>
+                        </div>
+                        <div class="summary-item-price">${formatPrice(item.price * item.quantity)}</div>
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('subtotal').textContent = formatPrice(subtotal);
+            document.getElementById('total').textContent = formatPrice(subtotal);
+        }
+
+        function placeOrder() {
+            const fullName = document.getElementById('fullName').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const address = document.getElementById('address').value;
+            
+            if (!fullName || !phone || !email || !address) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            // Save order (demo)
+            const cart = JSON.parse(localStorage.getItem('labelle_cart') || '[]');
+            const order = {
+                id: 'ORD-' + Date.now().toString().slice(-6),
+                customer: fullName,
+                phone: phone,
+                email: email,
+                address: address,
+                items: cart,
+                total: cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
+                status: 'New',
+                date: new Date().toISOString()
+            };
+            const orders = JSON.parse(localStorage.getItem('labelle_orders') || '[]');
+            orders.push(order);
+            localStorage.setItem('labelle_orders', JSON.stringify(orders));
+            localStorage.removeItem('labelle_cart');
+            
+            alert('Order placed successfully! (Demo - No real payment processed)\n\nOrder ID: ' + order.id);
+            window.location.href = 'order-confirmation.html?order=' + order.id;
+        }
+
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('labelle_cart') || '[]');
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+
+        loadOrder();
+    </script>
+</body>
+</html>

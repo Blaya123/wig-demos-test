@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Dashboard - LaBelle Wigs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f9fafb;
+            color: #000000;
+        }
+        .demo-banner {
+            background: #fff3cd;
+            padding: 0.625rem 1rem;
+            text-align: center;
+            font-size: 0.8125rem;
+            color: #856404;
+        }
+        header {
+            background: #000000;
+            color: #ffffff;
+            padding: 1.25rem 1rem;
+        }
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+        }
+        nav {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.5rem 0.875rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 6px;
+            font-size: 0.875rem;
+        }
+        nav a:hover { background: rgba(255,255,255,0.2); }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 1rem;
+        }
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #e5e7eb;
+            flex-wrap: wrap;
+        }
+        .tab {
+            padding: 0.75rem 1.25rem;
+            background: none;
+            border: none;
+            color: #6b7280;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            font-family: inherit;
+        }
+        .tab.active {
+            color: #000000;
+            border-bottom-color: #000000;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .stat-card {
+            background: #ffffff;
+            padding: 1.25rem;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
+        }
+        .stat-label {
+            font-size: 0.8125rem;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+        .stat-value {
+            font-size: 1.875rem;
+            font-weight: 700;
+        }
+        .section {
+            background: #ffffff;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        .section-header {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        .section-header h2 {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+        .btn {
+            padding: 0.625rem 1rem;
+            background: #000000;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .btn:hover { background: #1a1a1a; }
+        .btn-secondary {
+            background: #ffffff;
+            color: #000000;
+            border: 1px solid #d1d5db;
+        }
+        .btn-secondary:hover { background: #f9fafb; }
+        .table-container {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th {
+            background: #f9fafb;
+            padding: 0.75rem 1.25rem;
+            text-align: left;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: #6b7280;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        td {
+            padding: 0.875rem 1.25rem;
+            border-bottom: 1px solid #f3f4f6;
+            font-size: 0.875rem;
+        }
+        tr:hover {
+            background: #f9fafb;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.625rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .status-instock { background: #dcfce7; color: #166534; }
+        .status-lowstock { background: #fef3c7; color: #92400e; }
+        .status-out { background: #fee2e2; color: #991b1b; }
+        .status-new { background: #dbeafe; color: #1e40af; }
+        .status-pending { background: #fef3c7; color: #92400e; }
+        .status-accepted { background: #dcfce7; color: #166534; }
+        .status-processing { background: #e0f2fe; color: #075985; }
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-banner">
+        <strong>DEMO:</strong> Store owner dashboard for website sales
+    </div>
+    
+    <header>
+        <div class="header-content">
+            <h1>LaBelle Wigs - Store Dashboard</h1>
+            <nav>
+                <a href="index.html">← Back to Store</a>
+                <a href="catalog.html">View Catalog</a>
+                <a href="assistant.html">View Assistant</a>
+                <a href="../index.html">All Demos</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('overview')">Overview</button>
+            <button class="tab" onclick="switchTab('products')">Product Management</button>
+            <button class="tab" onclick="switchTab('orders')">Orders</button>
+            <button class="tab" onclick="switchTab('preorders')">Preorders</button>
+            <button class="tab" onclick="switchTab('conversations')">Website Chats</button>
+        </div>
+
+        <div id="tab-overview" class="tab-content active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Products</div>
+                    <div class="stat-value">6</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Products in Stock</div>
+                    <div class="stat-value">5</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">New Orders</div>
+                    <div class="stat-value" id="newOrdersCount">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Pending Preorders</div>
+                    <div class="stat-value">2</div>
+                </div>
+            </div>
+            <div class="section">
+                <div class="section-header">
+                    <h2>Dashboard Overview</h2>
+                </div>
+                <div style="padding: 1.25rem;">
+                    <p style="color: #4b5563; line-height: 1.7;">Manage your online wig store from this dashboard. Add and edit products, process orders, handle preorder requests, and view customer interactions all in one place.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-products" class="tab-content">
+            <div class="section">
+                <div class="section-header">
+                    <h2>Product Management</h2>
+                    <button class="btn">+ Add Product</button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Price (₦)</th>
+                                <th>Texture</th>
+                                <th>Stock</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Bone Straight Wig</strong></td>
+                                <td>85,000</td>
+                                <td>Bone Straight</td>
+                                <td>15</td>
+                                <td><span class="status-badge status-instock">In Stock</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 0.375rem 0.75rem; font-size: 0.8125rem;">Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Body Wave Wig</strong></td>
+                                <td>95,000</td>
+                                <td>Body Wave</td>
+                                <td>8</td>
+                                <td><span class="status-badge status-instock">In Stock</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 0.375rem 0.75rem; font-size: 0.8125rem;">Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Deep Curly Wig</strong></td>
+                                <td>110,000</td>
+                                <td>Deep Curly</td>
+                                <td>3</td>
+                                <td><span class="status-badge status-lowstock">Low Stock</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 0.375rem 0.75rem; font-size: 0.8125rem;">Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Classic Bob Wig</strong></td>
+                                <td>65,000</td>
+                                <td>Straight</td>
+                                <td>12</td>
+                                <td><span class="status-badge status-instock">In Stock</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 0.375rem 0.75rem; font-size: 0.8125rem;">Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Honey Blonde Wig</strong></td>
+                                <td>125,000</td>
+                                <td>Body Wave</td>
+                                <td>0</td>
+                                <td><span class="status-badge status-out">Out of Stock</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 0.375rem 0.75rem; font-size: 0.8125rem;">Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Loose Wave Wig</strong></td>
+                                <td>98,000</td>
+                                <td>Loose Wave</td>
+                                <td>10</td>
+                                <td><span class="status-badge status-instock">In Stock</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 0.375rem 0.75rem; font-size: 0.8125rem;">Edit</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-orders" class="tab-content">
+            <div class="section">
+                <div class="section-header">
+                    <h2>Website Orders</h2>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Items</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <tr>
+                                <td colspan="6" style="text-align: center; color: #6b7280;">No orders yet</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-preorders" class="tab-content">
+            <div class="section">
+                <div class="section-header">
+                    <h2>Preorder Requests</h2>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Request ID</th>
+                                <th>Customer</th>
+                                <th>Product</th>
+                                <th>Details</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#PR-001</td>
+                                <td>Funmi Adeyemi<br><small>08033332222</small></td>
+                                <td>Honey Blonde Wig</td>
+                                <td>Length: 22", Color: Honey Blonde</td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                                <td>
+                                    <button class="btn" style="padding: 0.375rem 0.75rem; font-size: 0.8125rem; margin-bottom: 0.25rem;">Accept</button><br>
+                                    <button class="btn btn-secondary" style="padding: 0.375rem 0.75rem; font-size: 0.8125rem;">Decline</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#PR-002</td>
+                                <td>Chioma Nwosu<br><small>08022221111</small></td>
+                                <td>Bone Straight Wig</td>
+                                <td>Length: 28", Color: Natural Black</td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                                <td>
+                                    <button class="btn" style="padding: 0.375rem 0.75rem; font-size: 0.8125rem; margin-bottom: 0.25rem;">Accept</button><br>
+                                    <button class="btn btn-secondary" style="padding: 0.375rem 0.75rem; font-size: 0.8125rem;">Decline</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-conversations" class="tab-content">
+            <div class="section">
+                <div class="section-header">
+                    <h2>Website Customer Chats</h2>
+                </div>
+                <div style="padding: 1.25rem;">
+                    <p style="color: #6b7280;">Website assistant conversations appear here. Customers can ask questions through the shopping assistant.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById('tab-' + tabName).classList.add('active');
+        }
+
+        function loadOrders() {
+            const orders = JSON.parse(localStorage.getItem('labelle_orders') || '[]');
+            const tbody = document.getElementById('ordersTableBody');
+            const countEl = document.getElementById('newOrdersCount');
+            countEl.textContent = orders.length;
+            
+            if (orders.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #6b7280;">No orders yet</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = orders.map(order => `
+                <tr>
+                    <td><strong>${order.id}</strong></td>
+                    <td>${order.customer}<br><small>${order.phone}</small></td>
+                    <td>${order.items.length} item(s)</td>
+                    <td>₦${order.total.toLocaleString()}</td>
+                    <td><span class="status-badge status-new">${order.status}</span></td>
+                    <td><button class="btn btn-secondary" style="padding: 0.375rem 0.75rem; font-size: 0.8125rem;">View</button></td>
+                </tr>
+            `).join('');
+        }
+
+        loadOrders();
+    </script>
+</body>
+</html>

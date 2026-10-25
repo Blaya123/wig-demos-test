@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop All Wigs - LaBelle Wigs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            color: #000000;
+        }
+        header {
+            border-bottom: 1px solid #e5e7eb;
+            background: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .demo-banner {
+            background: #fff3cd;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            font-size: 0.8125rem;
+            color: #856404;
+            border-bottom: 1px solid #ffc107;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #000000;
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: #000000;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9375rem;
+        }
+        .nav-links a:hover { opacity: 0.7; }
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        .nav-actions a {
+            color: #000000;
+            text-decoration: none;
+            font-size: 0.9375rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        .page-header {
+            margin-bottom: 2rem;
+        }
+        .page-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .page-header p {
+            color: #6b7280;
+        }
+        .shop-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+        }
+        .filters {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1.25rem;
+            height: fit-content;
+        }
+        .filter-section {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .filter-section:last-of-type {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .filter-section h3 {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+        }
+        .filter-option input {
+            cursor: pointer;
+        }
+        .search-box {
+            width: 100%;
+            padding: 0.625rem 0.875rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-family: inherit;
+            margin-bottom: 1rem;
+        }
+        .products-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .products-count {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+        .sort-select {
+            padding: 0.5rem 0.875rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-family: inherit;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        .product-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .product-card:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            border-color: #d1d5db;
+        }
+        .product-image {
+            width: 100%;
+            height: 280px;
+            background: #f9fafb;
+            overflow: hidden;
+        }
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+        .product-info {
+            padding: 1rem;
+        }
+        .product-name {
+            font-weight: 600;
+            font-size: 0.9375rem;
+            margin-bottom: 0.375rem;
+            color: #000000;
+        }
+        .product-price {
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: #000000;
+            margin-bottom: 0.5rem;
+        }
+        .product-meta {
+            font-size: 0.8125rem;
+            color: #6b7280;
+            margin-bottom: 0.75rem;
+        }
+        .product-status {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .in-stock {
+            background: #dcfce7;
+            color: #166534;
+        }
+        .low-stock {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .out-of-stock {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .view-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: #000000;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.625rem;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.875rem;
+            margin-top: 0.75rem;
+        }
+        .view-btn:hover { background: #1a1a1a; }
+        footer {
+            background: #000000;
+            color: #9ca3af;
+            padding: 2rem 1rem;
+            text-align: center;
+            font-size: 0.875rem;
+            margin-top: 3rem;
+        }
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+        }
+        @media (max-width: 968px) {
+            .shop-layout {
+                grid-template-columns: 1fr;
+            }
+            .filters {
+                display: none;
+            }
+        }
+        @media (max-width: 640px) {
+            .nav-links { display: none; }
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-banner">
+        <strong>DEMO:</strong> Website-Only Wig Store
+    </div>
+    
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">LaBelle Wigs</a>
+            <nav class="nav-links">
+                <a href="catalog.html">Shop All</a>
+                <a href="catalog.html?filter=straight">Straight</a>
+                <a href="catalog.html?filter=wave">Wavy</a>
+                <a href="catalog.html?filter=curly">Curly</a>
+                <a href="catalog.html?filter=bob">Bob</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="assistant.html">💬 Ask Assistant</a>
+                <a href="cart.html">🛒 Cart (<span id="cartCount">0</span>)</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="../index.html">All Demos</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Shop All Wigs</h1>
+            <p>Browse our premium collection of women's wigs</p>
+        </div>
+
+        <div class="shop-layout">
+            <aside class="filters">
+                <input type="text" class="search-box" id="searchBox" placeholder="Search wigs..." onkeyup="filterProducts()">
+                
+                <div class="filter-section">
+                    <h3>Texture</h3>
+                    <label class="filter-option">
+                        <input type="checkbox" value="straight" onchange="filterProducts()"> Straight
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="bone straight" onchange="filterProducts()"> Bone Straight
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="body wave" onchange="filterProducts()"> Body Wave
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="loose wave" onchange="filterProducts()"> Loose Wave
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="deep curly" onchange="filterProducts()"> Deep Curly
+                    </label>
+                </div>
+
+                <div class="filter-section">
+                    <h3>Length</h3>
+                    <label class="filter-option">
+                        <input type="checkbox" value="10" onchange="filterProducts()"> 10"
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="12" onchange="filterProducts()"> 12"
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="14" onchange="filterProducts()"> 14"
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="16" onchange="filterProducts()"> 16"
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="18" onchange="filterProducts()"> 18"
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="20" onchange="filterProducts()"> 20"
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="22" onchange="filterProducts()"> 22"
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="24" onchange="filterProducts()"> 24"
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="26" onchange="filterProducts()"> 26"
+                    </label>
+                </div>
+
+                <div class="filter-section">
+                    <h3>Lace Type</h3>
+                    <label class="filter-option">
+                        <input type="checkbox" value="13x4" onchange="filterProducts()"> 13x4 Lace Front
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="13x6" onchange="filterProducts()"> 13x6 Lace Front
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="360" onchange="filterProducts()"> 360 Lace Frontal
+                    </label>
+                </div>
+
+                <div class="filter-section">
+                    <h3>Availability</h3>
+                    <label class="filter-option">
+                        <input type="checkbox" value="in-stock" onchange="filterProducts()"> In Stock
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="low-stock" onchange="filterProducts()"> Low Stock
+                    </label>
+                </div>
+            </aside>
+
+            <main>
+                <div class="products-header">
+                    <div class="products-count" id="productsCount">Showing 6 products</div>
+                    <select class="sort-select" onchange="sortProducts(this.value)">
+                        <option value="default">Sort by: Default</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="name">Name: A to Z</option>
+                    </select>
+                </div>
+
+                <div class="products-grid" id="productsGrid"></div>
+            </main>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="catalog.html">Shop</a>
+            <a href="assistant.html">Assistant</a>
+            <a href="cart.html">Cart</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="../index.html">All Demos</a>
+        </div>
+        <p>&copy; 2024 LaBelle Wigs. Premium Women's Wig Store Demo.</p>
+    </footer>
+
+    <script>
+        const products = [
+            { id: 1, name: "Bone Straight Wig", price: 85000, image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500&h=500&fit=crop", lengths: ["16", "18", "20", "24", "26"], texture: "bone straight", laceType: "13x4", colors: ["Natural Black", "Dark Brown"], stock: 15, status: "in-stock", description: "Sleek, silky bone straight wig" },
+            { id: 2, name: "Body Wave Wig", price: 95000, image: "https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=500&h=500&fit=crop", lengths: ["18", "20", "22", "24"], texture: "body wave", laceType: "13x6", colors: ["Natural Black", "Off Black"], stock: 8, status: "in-stock", description: "Soft, bouncy body wave" },
+            { id: 3, name: "Deep Curly Wig", price: 110000, image: "https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=500&h=500&fit=crop", lengths: ["16", "18", "20"], texture: "deep curly", laceType: "13x4", colors: ["Natural Black", "Burgundy"], stock: 3, status: "low-stock", description: "Tight, defined curls" },
+            { id: 4, name: "Classic Bob Wig", price: 65000, image: "https://images.unsplash.com/photo-1560869713-7d0a29430803?w=500&h=500&fit=crop", lengths: ["10", "12", "14"], texture: "straight", laceType: "13x4", colors: ["Natural Black", "Dark Brown"], stock: 12, status: "in-stock", description: "Chic, sophisticated bob cut" },
+            { id: 5, name: "Honey Blonde Wig", price: 125000, image: "https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=500&h=500&fit=crop", lengths: ["18", "20", "22", "24"], texture: "body wave", laceType: "360", colors: ["Honey Blonde"], stock: 0, status: "out-of-stock", description: "Beautiful honey blonde shade" },
+            { id: 6, name: "Loose Wave Wig", price: 98000, image: "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=500&h=500&fit=crop", lengths: ["20", "22", "24", "26"], texture: "loose wave", laceType: "13x6", colors: ["Natural Black", "Dark Brown"], stock: 10, status: "in-stock", description: "Relaxed, beachy loose waves" }
+        ];
+
+        let currentProducts = [...products];
+
+        function formatPrice(price) {
+            return "₦" + price.toLocaleString();
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            const countEl = document.getElementById('productsCount');
+            countEl.textContent = `Showing ${currentProducts.length} product${currentProducts.length !== 1 ? 's' : ''}`;
+            
+            if (currentProducts.length === 0) {
+                grid.innerHTML = '<p style="color: #6b7280; grid-column: 1/-1; text-align: center; padding: 2rem;">No products match your filters</p>';
+                return;
+            }
+            
+            grid.innerHTML = currentProducts.map(product => `
+                <div class="product-card" onclick="window.location.href='product.html?id=${product.id}'">
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.name}" onerror="this.src='https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500&h=500&fit=crop'">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-price">${formatPrice(product.price)}</div>
+                        <div class="product-meta">${product.texture.replace(/(^\w|\s\w)/g, m => m.toUpperCase())} • ${product.lengths.length} lengths</div>
+                        <span class="product-status ${product.status}">
+                            ${product.status === 'in-stock' ? '✓ In Stock' : product.status === 'low-stock' ? '⚠ Low Stock' : '✗ Out of Stock'}
+                        </span>
+                        <a href="product.html?id=${product.id}" class="view-btn" onclick="event.stopPropagation()">View Details</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterProducts() {
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            const checkedTextures = Array.from(document.querySelectorAll('input[type=checkbox]:checked')).map(cb => cb.value);
+            
+            currentProducts = products.filter(product => {
+                const matchesSearch = product.name.toLowerCase().includes(searchTerm) || product.description.toLowerCase().includes(searchTerm);
+                if (!matchesSearch) return false;
+                
+                if (checkedTextures.length === 0) return true;
+                
+                const productTextures = [product.texture, product.laceType.replace('x', 'x'), product.status];
+                return checkedTextures.some(filter => 
+                    productTextures.some(pt => pt.includes(filter)) || 
+                    product.lengths.some(l => checkedTextures.includes(l))
+                );
+            });
+            
+            renderProducts();
+        }
+
+        function sortProducts(sortBy) {
+            if (sortBy === 'price-low') {
+                currentProducts.sort((a, b) => a.price - b.price);
+            } else if (sortBy === 'price-high') {
+                currentProducts.sort((a, b) => b.price - a.price);
+            } else if (sortBy === 'name') {
+                currentProducts.sort((a, b) => a.name.localeCompare(b.name));
+            } else {
+                currentProducts = [...products.filter(p => {
+                    const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+                    const checkedTextures = Array.from(document.querySelectorAll('input[type=checkbox]:checked')).map(cb => cb.value);
+                    const matchesSearch = p.name.toLowerCase().includes(searchTerm) || p.description.toLowerCase().includes(searchTerm);
+                    if (!matchesSearch) return false;
+                    if (checkedTextures.length === 0) return true;
+                    const productTextures = [p.texture, p.laceType.replace('x', 'x'), p.status];
+                    return checkedTextures.some(filter => 
+                        productTextures.some(pt => pt.includes(filter)) || 
+                        p.lengths.some(l => checkedTextures.includes(l))
+                    );
+                })];
+            }
+            renderProducts();
+        }
+
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('labelle_cart') || '[]');
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+
+        // Check URL params for filters
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('filter')) {
+            const filter = urlParams.get('filter');
+            document.querySelectorAll('input[type=checkbox]').forEach(cb => {
+                if (cb.value === filter || cb.value.includes(filter)) {
+                    cb.checked = true;
+                }
+            });
+        }
+
+        updateCartCount();
+        filterProducts();
+    </script>
+</body>
+</html>

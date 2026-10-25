@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - LaBelle Wigs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            color: #000000;
+        }
+        header {
+            border-bottom: 1px solid #e5e7eb;
+            background: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .demo-banner {
+            background: #fff3cd;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            font-size: 0.8125rem;
+            color: #856404;
+            border-bottom: 1px solid #ffc107;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #000000;
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: #000000;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9375rem;
+        }
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        .nav-actions a {
+            color: #000000;
+            text-decoration: none;
+            font-size: 0.9375rem;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        .breadcrumb {
+            margin-bottom: 2rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        .breadcrumb a {
+            color: #000000;
+            text-decoration: none;
+        }
+        .product-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        .product-images {
+            width: 100%;
+        }
+        .main-image {
+            width: 100%;
+            height: 500px;
+            background: #f9fafb;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+        .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .product-details h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+        .product-price {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        .product-status {
+            display: inline-block;
+            padding: 0.375rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+        .in-stock {
+            background: #dcfce7;
+            color: #166534;
+        }
+        .low-stock {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .out-of-stock {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .product-section {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .product-section:last-of-type {
+            border-bottom: none;
+            margin-bottom: 2rem;
+        }
+        .product-section h3 {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        .option-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .option-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #d1d5db;
+            background: #ffffff;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-family: inherit;
+        }
+        .option-btn.active {
+            background: #000000;
+            color: #ffffff;
+            border-color: #000000;
+        }
+        .option-btn:hover:not(.active):not(:disabled) {
+            border-color: #000000;
+        }
+        .option-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .product-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            font-size: 0.875rem;
+        }
+        .product-meta-item {
+            padding: 0.75rem;
+            background: #f9fafb;
+            border-radius: 6px;
+        }
+        .product-meta-item strong {
+            display: block;
+            color: #000000;
+            margin-bottom: 0.25rem;
+        }
+        .product-meta-item span {
+            color: #6b7280;
+        }
+        .product-description {
+            color: #4b5563;
+            line-height: 1.7;
+        }
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .quantity-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #d1d5db;
+            background: #ffffff;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .quantity-btn:hover {
+            border-color: #000000;
+        }
+        .quantity-display {
+            min-width: 40px;
+            text-align: center;
+            font-weight: 500;
+        }
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .btn {
+            padding: 0.875rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            text-decoration: none;
+            text-align: center;
+        }
+        .btn-primary {
+            background: #000000;
+            color: #ffffff;
+        }
+        .btn-primary:hover:not(:disabled) {
+            background: #1a1a1a;
+        }
+        .btn-primary:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+        .btn-secondary {
+            background: #ffffff;
+            color: #000000;
+            border: 2px solid #000000;
+        }
+        .btn-secondary:hover {
+            background: #f9fafb;
+        }
+        .preorder-info {
+            background: #fef3c7;
+            border: 1px solid #fbbf24;
+            padding: 0.875rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            color: #92400e;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        .preorder-info.active {
+            display: block;
+        }
+        footer {
+            background: #000000;
+            color: #9ca3af;
+            padding: 2rem 1rem;
+            text-align: center;
+            font-size: 0.875rem;
+            margin-top: 3rem;
+        }
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+        }
+        @media (max-width: 968px) {
+            .product-layout {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+        @media (max-width: 640px) {
+            .nav-links { display: none; }
+            .product-meta {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-banner">
+        <strong>DEMO:</strong> Website-Only Wig Store
+    </div>
+    
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">LaBelle Wigs</a>
+            <nav class="nav-links">
+                <a href="catalog.html">Shop All</a>
+                <a href="catalog.html?filter=straight">Straight</a>
+                <a href="catalog.html?filter=wave">Wavy</a>
+                <a href="catalog.html?filter=curly">Curly</a>
+                <a href="catalog.html?filter=bob">Bob</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="assistant.html">💬 Ask Assistant</a>
+                <a href="cart.html">🛒 Cart (<span id="cartCount">0</span>)</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="../index.html">All Demos</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="index.html">Home</a> / <a href="catalog.html">Shop</a> / <span id="breadcrumbName">Product</span>
+        </div>
+
+        <div class="product-layout">
+            <div class="product-images">
+                <div class="main-image">
+                    <img id="mainImage" src="" alt="">
+                </div>
+            </div>
+
+            <div class="product-details">
+                <h1 id="productName"></h1>
+                <div class="product-price" id="productPrice"></div>
+                <span class="product-status" id="productStatus"></span>
+                
+                <div class="preorder-info" id="preorderInfo">
+                    ⚠️ This item is currently out of stock. You can request a preorder and we'll notify you when it's available.
+                </div>
+                
+                <div class="product-section">
+                    <h3>Select Length</h3>
+                    <div class="option-buttons" id="lengthOptions"></div>
+                </div>
+
+                <div class="product-section">
+                    <h3>Select Color</h3>
+                    <div class="option-buttons" id="colorOptions"></div>
+                </div>
+
+                <div class="product-section">
+                    <h3>Product Details</h3>
+                    <div class="product-meta">
+                        <div class="product-meta-item">
+                            <strong>Texture</strong>
+                            <span id="productTexture"></span>
+                        </div>
+                        <div class="product-meta-item">
+                            <strong>Lace Type</strong>
+                            <span id="productLace"></span>
+                        </div>
+                        <div class="product-meta-item">
+                            <strong>Available Lengths</strong>
+                            <span id="productLengths"></span>
+                        </div>
+                        <div class="product-meta-item">
+                            <strong>Colors Available</strong>
+                            <span id="productColors"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-section">
+                    <h3>Description</h3>
+                    <p class="product-description" id="productDescription"></p>
+                </div>
+
+                <div class="product-section" id="quantitySection">
+                    <h3>Quantity</h3>
+                    <div class="quantity-selector">
+                        <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
+                        <span class="quantity-display" id="quantity">1</span>
+                        <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" id="addToCartBtn" onclick="addToCart()">Add to Cart</button>
+                    <button class="btn btn-secondary" id="preorderBtn" onclick="requestPreorder()" style="display: none;">Request Preorder</button>
+                    <a href="assistant.html" class="btn btn-secondary">Ask Assistant About This Wig</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="catalog.html">Shop</a>
+            <a href="assistant.html">Assistant</a>
+            <a href="cart.html">Cart</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="../index.html">All Demos</a>
+        </div>
+        <p>&copy; 2024 LaBelle Wigs. Premium Women's Wig Store Demo.</p>
+    </footer>
+
+    <script>
+        const products = [
+            { id: 1, name: "Bone Straight Wig", price: 85000, image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&h=600&fit=crop", lengths: ["16", "18", "20", "24", "26"], texture: "Bone Straight", laceType: "13x4 Lace Front", colors: ["Natural Black", "Dark Brown"], stock: 15, status: "in-stock", description: "Sleek, silky bone straight wig with natural movement. Perfect for a polished, elegant look. Made with high-quality hair for a natural appearance." },
+            { id: 2, name: "Body Wave Wig", price: 95000, image: "https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=600&h=600&fit=crop", lengths: ["18", "20", "22", "24"], texture: "Body Wave", laceType: "13x6 Lace Front", colors: ["Natural Black", "Off Black"], stock: 8, status: "in-stock", description: "Soft, bouncy body wave with gorgeous volume. Great for both casual and dressy occasions. Easy to style and maintain." },
+            { id: 3, name: "Deep Curly Wig", price: 110000, image: "https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=600&h=600&fit=crop", lengths: ["16", "18", "20"], texture: "Deep Curly", laceType: "13x4 Lace Front", colors: ["Natural Black", "Burgundy"], stock: 3, status: "low-stock", description: "Tight, defined curls with amazing bounce. Full of volume and very head-turning. Perfect for making a statement." },
+            { id: 4, name: "Classic Bob Wig", price: 65000, image: "https://images.unsplash.com/photo-1560869713-7d0a29430803?w=600&h=600&fit=crop", lengths: ["10", "12", "14"], texture: "Straight", laceType: "13x4 Lace Front", colors: ["Natural Black", "Dark Brown", "Chocolate Brown"], stock: 12, status: "in-stock", description: "Chic, sophisticated bob cut. Low maintenance and perfect for a modern, elegant look. Great for everyday wear." },
+            { id: 5, name: "Honey Blonde Wig", price: 125000, image: "https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=600&h=600&fit=crop", lengths: ["18", "20", "22", "24"], texture: "Body Wave", laceType: "360 Lace Frontal", colors: ["Honey Blonde", "Caramel Blonde"], stock: 0, status: "out-of-stock", description: "Beautiful honey blonde shade with body wave texture. Bold, trendy, and eye-catching. A stunning choice for special occasions." },
+            { id: 6, name: "Loose Wave Wig", price: 98000, image: "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=600&h=600&fit=crop", lengths: ["20", "22", "24", "26"], texture: "Loose Wave", laceType: "13x6 Lace Front", colors: ["Natural Black", "Dark Brown"], stock: 10, status: "in-stock", description: "Relaxed, beachy loose waves. Effortlessly beautiful with a natural, flowing look. Perfect for any occasion." }
+        ];
+
+        let currentProduct = null;
+        let selectedLength = null;
+        let selectedColor = null;
+        let quantity = 1;
+
+        function formatPrice(price) {
+            return "₦" + price.toLocaleString();
+        }
+
+        function loadProduct() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = parseInt(urlParams.get('id'));
+            currentProduct = products.find(p => p.id === productId);
+            
+            if (!currentProduct) {
+                document.querySelector('.container').innerHTML = '<p style="text-align: center; padding: 2rem;">Product not found. <a href="catalog.html">Back to Shop</a></p>';
+                return;
+            }
+            
+            document.title = currentProduct.name + ' - LaBelle Wigs';
+            document.getElementById('breadcrumbName').textContent = currentProduct.name;
+            document.getElementById('mainImage').src = currentProduct.image;
+            document.getElementById('mainImage').alt = currentProduct.name;
+            document.getElementById('productName').textContent = currentProduct.name;
+            document.getElementById('productPrice').textContent = formatPrice(currentProduct.price);
+            document.getElementById('productDescription').textContent = currentProduct.description;
+            document.getElementById('productTexture').textContent = currentProduct.texture;
+            document.getElementById('productLace').textContent = currentProduct.laceType;
+            document.getElementById('productLengths').textContent = currentProduct.lengths.map(l => l + '"').join(', ');
+            document.getElementById('productColors').textContent = currentProduct.colors.join(', ');
+            
+            const statusEl = document.getElementById('productStatus');
+            statusEl.textContent = currentProduct.status === 'in-stock' ? '✓ In Stock' : currentProduct.status === 'low-stock' ? '⚠ Low Stock (' + currentProduct.stock + ' left)' : '✗ Out of Stock';
+            statusEl.className = 'product-status ' + currentProduct.status;
+            
+            if (currentProduct.status === 'out-of-stock') {
+                document.getElementById('preorderInfo').classList.add('active');
+                document.getElementById('addToCartBtn').style.display = 'none';
+                document.getElementById('preorderBtn').style.display = 'block';
+                document.getElementById('quantitySection').style.display = 'none';
+            } else if (currentProduct.status === 'low-stock') {
+                document.getElementById('preorderInfo').classList.remove('active');
+                document.getElementById('addToCartBtn').textContent = 'Add to Cart (Low Stock)';
+            }
+            
+            // Length options
+            const lengthDiv = document.getElementById('lengthOptions');
+            currentProduct.lengths.forEach((length, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = length + '"';
+                btn.onclick = () => selectLength(btn, length);
+                if (idx === 0) {
+                    btn.classList.add('active');
+                    selectedLength = length;
+                }
+                lengthDiv.appendChild(btn);
+            });
+            
+            // Color options
+            const colorDiv = document.getElementById('colorOptions');
+            currentProduct.colors.forEach((color, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = color;
+                btn.onclick = () => selectColor(btn, color);
+                if (idx === 0) {
+                    btn.classList.add('active');
+                    selectedColor = color;
+                }
+                colorDiv.appendChild(btn);
+            });
+        }
+
+        function selectLength(btn, length) {
+            document.querySelectorAll('#lengthOptions .option-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            selectedLength = length;
+        }
+
+        function selectColor(btn, color) {
+            document.querySelectorAll('#colorOptions .option-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            selectedColor = color;
+        }
+
+        function changeQuantity(delta) {
+            quantity += delta;
+            if (quantity < 1) quantity = 1;
+            if (quantity > 5) quantity = 5;
+            document.getElementById('quantity').textContent = quantity;
+        }
+
+        function addToCart() {
+            if (!selectedLength || !selectedColor) {
+                alert('Please select length and color');
+                return;
+            }
+            const cart = JSON.parse(localStorage.getItem('labelle_cart') || '[]');
+            cart.push({
+                id: currentProduct.id,
+                name: currentProduct.name,
+                price: currentProduct.price,
+                image: currentProduct.image,
+                length: selectedLength,
+                color: selectedColor,
+                quantity: quantity
+            });
+            localStorage.setItem('labelle_cart', JSON.stringify(cart));
+            updateCartCount();
+            alert('Added to cart!');
+            if (confirm('Go to cart?')) {
+                window.location.href = 'cart.html';
+            }
+        }
+
+        function requestPreorder() {
+            if (!selectedLength || !selectedColor) {
+                alert('Please select length and color');
+                return;
+            }
+            const name = prompt('Enter your full name:');
+            if (!name) return;
+            const phone = prompt('Enter your phone number:');
+            if (!phone) return;
+            alert('Preorder request submitted! We will contact you when this wig becomes available.');
+        }
+
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('labelle_cart') || '[]');
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+
+        updateCartCount();
+        loadProduct();
+    </script>
+</body>
+</html>

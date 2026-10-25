@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Assistant - LaBelle Wigs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f9fafb;
+            color: #000000;
+        }
+        header {
+            border-bottom: 1px solid #e5e7eb;
+            background: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .demo-banner {
+            background: #fff3cd;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            font-size: 0.8125rem;
+            color: #856404;
+            border-bottom: 1px solid #ffc107;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #000000;
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: #000000;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9375rem;
+        }
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        .nav-actions a {
+            color: #000000;
+            text-decoration: none;
+            font-size: 0.9375rem;
+        }
+        .container {
+            max-width: 700px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .assistant-header {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px 12px 0 0;
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .assistant-avatar {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+        .assistant-info h2 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        .assistant-info p {
+            font-size: 0.8125rem;
+            color: #6b7280;
+        }
+        .chat-container {
+            background: #ffffff;
+            border-left: 1px solid #e5e7eb;
+            border-right: 1px solid #e5e7eb;
+            min-height: 400px;
+            max-height: 500px;
+            overflow-y: auto;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .message {
+            max-width: 80%;
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+        .message.assistant {
+            align-self: flex-start;
+            background: #f3f4f6;
+            border-radius: 10px 10px 10px 0;
+        }
+        .message.user {
+            align-self: flex-end;
+            background: #000000;
+            color: #ffffff;
+            border-radius: 10px 10px 0 10px;
+        }
+        .product-card-chat {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 0.75rem;
+            max-width: 250px;
+        }
+        .product-card-chat img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+        }
+        .product-card-chat-info {
+            padding: 0.625rem;
+        }
+        .product-card-chat-name {
+            font-weight: 600;
+            font-size: 0.8125rem;
+            margin-bottom: 0.25rem;
+        }
+        .product-card-chat-price {
+            color: #000000;
+            font-weight: 600;
+            font-size: 0.8125rem;
+        }
+        .input-area {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            padding: 1rem;
+            display: flex;
+            gap: 0.75rem;
+        }
+        .message-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-family: inherit;
+        }
+        .send-btn {
+            padding: 0.75rem 1.5rem;
+            background: #000000;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.875rem;
+            font-family: inherit;
+        }
+        .send-btn:hover {
+            background: #1a1a1a;
+        }
+        .quick-questions {
+            margin-top: 1.5rem;
+            background: #ffffff;
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
+        }
+        .quick-questions h3 {
+            font-size: 0.875rem;
+            margin-bottom: 0.75rem;
+            color: #6b7280;
+        }
+        .quick-btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .quick-btn {
+            padding: 0.5rem 0.875rem;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 0.8125rem;
+            cursor: pointer;
+            color: #000000;
+            font-family: inherit;
+        }
+        .quick-btn:hover {
+            background: #f3f4f6;
+        }
+        footer {
+            background: #000000;
+            color: #9ca3af;
+            padding: 2rem 1rem;
+            text-align: center;
+            font-size: 0.875rem;
+            margin-top: 3rem;
+        }
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+        }
+        @media (max-width: 640px) {
+            .nav-links { display: none; }
+            .message { max-width: 90%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-banner">
+        <strong>DEMO:</strong> Website Shopping Assistant
+    </div>
+    
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">LaBelle Wigs</a>
+            <nav class="nav-links">
+                <a href="catalog.html">Shop All</a>
+                <a href="catalog.html?filter=straight">Straight</a>
+                <a href="catalog.html?filter=wave">Wavy</a>
+                <a href="catalog.html?filter=curly">Curly</a>
+                <a href="catalog.html?filter=bob">Bob</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="assistant.html">💬 Ask Assistant</a>
+                <a href="cart.html">🛒 Cart (<span id="cartCount">0</span>)</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="../index.html">All Demos</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="assistant-header">
+            <div class="assistant-avatar">✨</div>
+            <div class="assistant-info">
+                <h2>LaBelle Style Assistant</h2>
+                <p>Here to help you find the perfect wig</p>
+            </div>
+        </div>
+        
+        <div class="chat-container" id="chatContainer">
+            <div class="message assistant">
+                Hi there! I'm your LaBelle Style Assistant 👋<br><br>
+                I can help you find the perfect wig, answer questions about our products, check availability, compare styles, and make recommendations. What are you looking for today?
+            </div>
+        </div>
+        
+        <div class="input-area">
+            <input type="text" class="message-input" id="messageInput" placeholder="Ask me anything about our wigs..." onkeypress="handleKeyPress(event)">
+            <button class="send-btn" onclick="sendMessage()">Send</button>
+        </div>
+
+        <div class="quick-questions">
+            <h3>Quick Questions:</h3>
+            <div class="quick-btns">
+                <button class="quick-btn" onclick="quickQuestion('Show me bone straight wigs')">Bone Straight Wigs</button>
+                <button class="quick-btn" onclick="quickQuestion('What wigs do you have under 90000 naira?')">Under ₦90,000</button>
+                <button class="quick-btn" onclick="quickQuestion('I need a wig for everyday wear')">Everyday Wear</button>
+                <button class="quick-btn" onclick="quickQuestion('Compare body wave vs loose wave')">Compare Styles</button>
+                <button class="quick-btn" onclick="quickQuestion('Do you have any wigs in stock?')">What's in Stock</button>
+                <button class="quick-btn" onclick="quickQuestion('Show me bob wigs')">Bob Wigs</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="catalog.html">Shop</a>
+            <a href="assistant.html">Assistant</a>
+            <a href="cart.html">Cart</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="../index.html">All Demos</a>
+        </div>
+        <p>&copy; 2024 LaBelle Wigs. Premium Women's Wig Store Demo.</p>
+    </footer>
+
+    <script>
+        const products = [
+            { id: 1, name: "Bone Straight Wig", price: 85000, image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400&h=400&fit=crop", texture: "Bone Straight", stock: 15 },
+            { id: 2, name: "Body Wave Wig", price: 95000, image: "https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=400&h=400&fit=crop", texture: "Body Wave", stock: 8 },
+            { id: 3, name: "Deep Curly Wig", price: 110000, image: "https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=400&h=400&fit=crop", texture: "Deep Curly", stock: 3 },
+            { id: 4, name: "Classic Bob Wig", price: 65000, image: "https://images.unsplash.com/photo-1560869713-7d0a29430803?w=400&h=400&fit=crop", texture: "Straight", stock: 12 },
+            { id: 5, name: "Honey Blonde Wig", price: 125000, image: "https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=400&h=400&fit=crop", texture: "Body Wave", stock: 0 },
+            { id: 6, name: "Loose Wave Wig", price: 98000, image: "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=400&h=400&fit=crop", texture: "Loose Wave", stock: 10 }
+        ];
+
+        function addMessage(text, type, product = null) {
+            const chatContainer = document.getElementById('chatContainer');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message ' + type;
+            
+            let content = text.replace(/\n/g, '<br>');
+            if (product) {
+                content += `
+                    <div class="product-card-chat">
+                        <img src="${product.image}" alt="${product.name}" onerror="this.src='https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400&h=400&fit=crop'">
+                        <div class="product-card-chat-info">
+                            <div class="product-card-chat-name">${product.name}</div>
+                            <div class="product-card-chat-price">₦${product.price.toLocaleString()}</div>
+                            <a href="product.html?id=${product.id}" style="font-size: 0.75rem; color: #000000;">View Details →</a>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            messageDiv.innerHTML = content;
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const text = input.value.trim();
+            if (!text) return;
+            
+            addMessage(text, 'user');
+            input.value = '';
+            
+            setTimeout(() => {
+                respondToMessage(text);
+            }, 800);
+        }
+
+        function handleKeyPress(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function quickQuestion(q) {
+            document.getElementById('messageInput').value = q;
+            sendMessage();
+        }
+
+        function respondToMessage(text) {
+            const lower = text.toLowerCase();
+            
+            if (lower.includes('bone straight')) {
+                const product = products.find(p => p.name.includes('Bone Straight'));
+                addMessage("I found our Bone Straight wigs for you:", 'assistant', product);
+                addMessage("Bone Straight wigs are sleek, silky, and perfect for a polished look. They're great for both professional settings and special occasions. Would you like to know more about pricing or place an order?", 'assistant');
+            }
+            else if (lower.includes('under') && (lower.includes('90000') || lower.includes('90'))) {
+                const matches = products.filter(p => p.price <= 90000);
+                addMessage(`Here are wigs under ₦90,000:`, 'assistant');
+                matches.forEach(p => {
+                    addMessage(`• ${p.name} - ₦${p.price.toLocaleString()} (${p.stock > 0 ? 'In Stock' : 'Out of Stock'})`, 'assistant');
+                });
+                addMessage("Would you like to see details of any of these?", 'assistant');
+            }
+            else if (lower.includes('everyday')) {
+                addMessage("For everyday wear, I'd recommend these options:", 'assistant');
+                const bob = products.find(p => p.name.includes('Bob'));
+                if (bob) addMessage("• Classic Bob Wig - Easy to maintain, comfortable, and looks great daily", 'assistant', bob);
+                addMessage("Bobs are lightweight and require less styling, perfect for everyday wear!", 'assistant');
+            }
+            else if (lower.includes('compare') && lower.includes('body wave') && lower.includes('loose wave')) {
+                addMessage("Here's a comparison:\n\n• Body Wave - More defined waves, more volume, holds curl pattern better\n• Loose Wave - Softer, more relaxed waves, looks more natural and effortless\n\nBody wave is great if you want more bounce and drama. Loose wave is perfect if you want a subtle, beachy look. Which style appeals to you more?", 'assistant');
+            }
+            else if (lower.includes('in stock')) {
+                const inStock = products.filter(p => p.stock > 0);
+                addMessage(`We have ${inStock.length} wigs currently in stock:`, 'assistant');
+                inStock.forEach(p => {
+                    addMessage(`• ${p.name} - ₦${p.price.toLocaleString()} (${p.stock} available)`, 'assistant');
+                });
+            }
+            else if (lower.includes('bob')) {
+                const product = products.find(p => p.name.includes('Bob'));
+                addMessage("Our Classic Bob Wig is perfect for a chic, modern look:", 'assistant', product);
+                addMessage("It's available in 10\", 12\", and 14\" lengths. Great for those who want something low-maintenance and stylish!", 'assistant');
+            }
+            else if (lower.includes('curly')) {
+                const product = products.find(p => p.texture.includes('Curly'));
+                addMessage("We have beautiful curly options:", 'assistant', product);
+                addMessage("Our Deep Curly Wig gives amazing volume and definition. Would you like to see all curly styles or get more details?", 'assistant');
+            }
+            else {
+                addMessage("I'd be happy to help you find the perfect wig! You can ask me about specific styles, prices, availability, compare wigs, or tell me what you're looking for (occasion, budget, preferred style) and I'll make recommendations.", 'assistant');
+            }
+        }
+
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('labelle_cart') || '[]');
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+        updateCartCount();
+    </script>
+</body>
+</html>

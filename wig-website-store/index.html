@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaBelle Wigs - Premium Women's Wig Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            background: #ffffff;
+            color: #000000;
+        }
+        header {
+            border-bottom: 1px solid #e5e7eb;
+            background: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .demo-banner {
+            background: #fff3cd;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            font-size: 0.8125rem;
+            color: #856404;
+            border-bottom: 1px solid #ffc107;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #000000;
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: #000000;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9375rem;
+            transition: opacity 0.2s;
+        }
+        .nav-links a:hover {
+            opacity: 0.7;
+        }
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        .nav-actions a {
+            color: #000000;
+            text-decoration: none;
+            font-size: 0.9375rem;
+        }
+        .hero {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            color: #ffffff;
+            padding: 5rem 1rem;
+            text-align: center;
+        }
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+        .hero p {
+            font-size: 1.25rem;
+            color: #e5e7eb;
+            margin-bottom: 2rem;
+        }
+        .hero-btn {
+            display: inline-block;
+            background: #ffffff;
+            color: #000000;
+            text-decoration: none;
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        .hero-btn:hover {
+            background: #f3f4f6;
+            transform: translateY(-2px);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1rem;
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 2.5rem;
+            font-size: 1.0625rem;
+        }
+        .collections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .collection-card {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+            height: 300px;
+        }
+        .collection-card:hover {
+            transform: scale(1.02);
+        }
+        .collection-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .collection-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: #ffffff;
+            padding: 2rem 1.5rem 1.5rem;
+        }
+        .collection-overlay h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        .about {
+            background: #f9fafb;
+            padding: 3rem 1rem;
+            margin: 3rem 0;
+        }
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .about h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+        .about p {
+            color: #4b5563;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .feature {
+            text-align: center;
+        }
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+        .feature h4 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .feature p {
+            color: #6b7280;
+            font-size: 0.9375rem;
+        }
+        .cta {
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+        .cta h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .cta p {
+            color: #6b7280;
+            margin-bottom: 2rem;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .cta-btn {
+            display: inline-block;
+            padding: 0.875rem 2rem;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9375rem;
+        }
+        .cta-btn-primary {
+            background: #000000;
+            color: #ffffff;
+        }
+        .cta-btn-primary:hover { background: #1a1a1a; }
+        .cta-btn-secondary {
+            background: #ffffff;
+            color: #000000;
+            border: 2px solid #000000;
+        }
+        .cta-btn-secondary:hover { background: #f9fafb; }
+        footer {
+            background: #000000;
+            color: #9ca3af;
+            padding: 2rem 1rem;
+            text-align: center;
+            font-size: 0.875rem;
+        }
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+        }
+        .footer-links a:hover { color: #ffffff; }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.25rem; }
+            .hero p { font-size: 1.125rem; }
+            .nav-links { gap: 1rem; }
+            .section-title { font-size: 1.75rem; }
+            .cta-buttons { flex-direction: column; width: 100%; }
+            .cta-btn { width: 100%; max-width: 300px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-banner">
+        <strong>DEMO:</strong> Website-Only Wig Store - Complete ecommerce experience
+    </div>
+    
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">LaBelle Wigs</a>
+            <nav class="nav-links">
+                <a href="catalog.html">Shop All</a>
+                <a href="catalog.html?filter=straight">Straight</a>
+                <a href="catalog.html?filter=wave">Wavy</a>
+                <a href="catalog.html?filter=curly">Curly</a>
+                <a href="catalog.html?filter=bob">Bob</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="assistant.html">💬 Ask Assistant</a>
+                <a href="cart.html">🛒 Cart (<span id="cartCount">0</span>)</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="../index.html">All Demos</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Luxury Wigs for Every Occasion</h1>
+            <p>Premium quality, natural looking women's wigs. Shop online with confidence.</p>
+            <a href="catalog.html" class="hero-btn">Shop Collection</a>
+        </div>
+    </section>
+
+    <div class="container">
+        <h2 class="section-title">Our Collections</h2>
+        <p class="section-subtitle">Find the perfect wig for your style</p>
+        
+        <div class="collections">
+            <div class="collection-card" onclick="window.location.href='catalog.html?filter=straight'">
+                <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&h=400&fit=crop" alt="Bone Straight Wigs">
+                <div class="collection-overlay">
+                    <h3>Bone Straight</h3>
+                    <p>Sleek & Sophisticated</p>
+                </div>
+            </div>
+            <div class="collection-card" onclick="window.location.href='catalog.html?filter=wave'">
+                <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=600&h=400&fit=crop" alt="Body Wave Wigs">
+                <div class="collection-overlay">
+                    <h3>Body Wave</h3>
+                    <p>Soft & Bouncy</p>
+                </div>
+            </div>
+            <div class="collection-card" onclick="window.location.href='catalog.html?filter=curly'">
+                <img src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=600&h=400&fit=crop" alt="Curly Wigs">
+                <div class="collection-overlay">
+                    <h3>Curly</h3>
+                    <p>Full of Volume</p>
+                </div>
+            </div>
+            <div class="collection-card" onclick="window.location.href='catalog.html?filter=bob'">
+                <img src="https://images.unsplash.com/photo-1560869713-7d0a29430803?w=600&h=400&fit=crop" alt="Bob Wigs">
+                <div class="collection-overlay">
+                    <h3>Bob Cut</h3>
+                    <p>Chic & Modern</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="about">
+        <div class="about-content">
+            <h2>About LaBelle Wigs</h2>
+            <p>LaBelle Wigs is a premium women's wig store offering high-quality, natural-looking wigs for every style and occasion. We believe every woman deserves to feel confident and beautiful.</p>
+            <p>Shop from the comfort of your home with our easy online store, complete with search, filters, and a helpful shopping assistant.</p>
+            
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">✨</div>
+                    <h4>Premium Quality</h4>
+                    <p>Carefully selected wigs with natural look and feel</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🚚</div>
+                    <h4>Nationwide Delivery</h4>
+                    <p>We deliver across Nigeria</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">💬</div>
+                    <h4>Expert Assistance</h4>
+                    <p>Our website assistant is here to help you choose</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔍</div>
+                    <h4>Easy Shopping</h4>
+                    <p>Search, filter, and shop with ease</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <h2>Start Shopping Today</h2>
+        <p>Browse our collection or ask our assistant for personalized recommendations</p>
+        <div class="cta-buttons">
+            <a href="catalog.html" class="cta-btn cta-btn-primary">View All Products</a>
+            <a href="assistant.html" class="cta-btn cta-btn-secondary">Ask Our Assistant</a>
+            <a href="dashboard.html" class="cta-btn cta-btn-secondary">Owner Dashboard</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="catalog.html">Shop</a>
+            <a href="assistant.html">Assistant</a>
+            <a href="cart.html">Cart</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="../index.html">All Demos</a>
+        </div>
+        <p>&copy; 2024 LaBelle Wigs. Premium Women's Wig Store Demo.</p>
+    </footer>
+
+    <script>
+        // Update cart count
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('labelle_cart') || '[]');
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+        updateCartCount();
+    </script>
+</body>
+</html>

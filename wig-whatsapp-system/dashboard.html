@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owner Dashboard - WhatsApp Sales System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f9fafb;
+            color: #101828;
+        }
+        .demo-banner {
+            background: #fff3cd;
+            border-bottom: 1px solid #ffc107;
+            padding: 0.625rem 1rem;
+            text-align: center;
+            font-size: 0.8125rem;
+            color: #856404;
+        }
+        header {
+            background: #000000;
+            color: #ffffff;
+            padding: 1.25rem 1rem;
+        }
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        nav {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.5rem 0.875rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 6px;
+            font-size: 0.875rem;
+        }
+        nav a:hover { background: rgba(255,255,255,0.2); }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 1rem;
+        }
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #e4e7ec;
+            flex-wrap: wrap;
+        }
+        .tab {
+            padding: 0.75rem 1.25rem;
+            background: none;
+            border: none;
+            color: #475467;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            font-family: inherit;
+        }
+        .tab.active {
+            color: #000000;
+            border-bottom-color: #000000;
+        }
+        .tab:hover {
+            color: #101828;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .stat-card {
+            background: #ffffff;
+            padding: 1.25rem;
+            border-radius: 10px;
+            border: 1px solid #e4e7ec;
+        }
+        .stat-label {
+            font-size: 0.8125rem;
+            color: #475467;
+            margin-bottom: 0.5rem;
+        }
+        .stat-value {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #101828;
+        }
+        .section {
+            background: #ffffff;
+            border-radius: 10px;
+            border: 1px solid #e4e7ec;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        .section-header {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid #e4e7ec;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        .section-header h2 {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+        .btn {
+            padding: 0.625rem 1rem;
+            background: #000000;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .btn:hover { background: #1a1a1a; }
+        .btn-secondary {
+            background: #ffffff;
+            color: #000000;
+            border: 1px solid #d0d5dd;
+        }
+        .btn-secondary:hover { background: #f9fafb; }
+        .table-container {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th {
+            background: #f9fafb;
+            padding: 0.75rem 1.25rem;
+            text-align: left;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: #475467;
+            border-bottom: 1px solid #e4e7ec;
+        }
+        td {
+            padding: 0.875rem 1.25rem;
+            border-bottom: 1px solid #f3f4f6;
+            font-size: 0.875rem;
+            color: #101828;
+        }
+        tr:hover {
+            background: #f9fafb;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.625rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .status-instock { background: #dcfce7; color: #166534; }
+        .status-lowstock { background: #fef3c7; color: #92400e; }
+        .status-out { background: #fee2e2; color: #991b1b; }
+        .status-new { background: #dbeafe; color: #1e40af; }
+        .status-pending { background: #fef3c7; color: #92400e; }
+        .status-accepted { background: #dcfce7; color: #166534; }
+        .status-declined { background: #f3f4f6; color: #374151; }
+        .status-confirmed { background: #dcfce7; color: #166534; }
+        .chat-item {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid #f3f4f6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+        .chat-item:hover {
+            background: #f9fafb;
+        }
+        .chat-info h4 {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        .chat-info p {
+            font-size: 0.8125rem;
+            color: #475467;
+        }
+        .chat-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .small-btn {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.8125rem;
+        }
+        .chat-detail {
+            display: none;
+            padding: 1rem 1.25rem;
+            background: #f9fafb;
+        }
+        .chat-detail.active {
+            display: block;
+        }
+        .chat-messages {
+            background: #ffffff;
+            border: 1px solid #e4e7ec;
+            border-radius: 8px;
+            padding: 1rem;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+        }
+        .chat-msg {
+            margin-bottom: 0.75rem;
+            padding: 0.625rem 0.875rem;
+            border-radius: 8px;
+            max-width: 70%;
+            font-size: 0.875rem;
+        }
+        .chat-msg.customer {
+            background: #dcf8c6;
+            margin-left: auto;
+        }
+        .chat-msg.assistant {
+            background: #f3f4f6;
+        }
+        .chat-msg.owner {
+            background: #e3f2fd;
+            border-left: 3px solid #2196f3;
+        }
+        .chat-input-row {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .chat-input {
+            flex: 1;
+            padding: 0.625rem 0.875rem;
+            border: 1px solid #d0d5dd;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-family: inherit;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .modal.active {
+            display: flex;
+        }
+        .modal-content {
+            background: #ffffff;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-header {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid #e4e7ec;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-header h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6b7280;
+        }
+        .modal-body {
+            padding: 1.25rem;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #101828;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.625rem 0.875rem;
+            border: 1px solid #d0d5dd;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-family: inherit;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+        .modal-footer {
+            padding: 1rem 1.25rem;
+            border-top: 1px solid #e4e7ec;
+            display: flex;
+            gap: 0.75rem;
+            justify-content: flex-end;
+        }
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; align-items: flex-start; }
+            .tabs { overflow-x: auto; }
+            .chat-item { flex-direction: column; align-items: flex-start; }
+            .chat-actions { width: 100%; }
+            .chat-actions button { flex: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-banner">
+        <strong>DEMO:</strong> Owner dashboard for managing the WhatsApp Sales System
+    </div>
+    
+    <header>
+        <div class="header-content">
+            <h1>Owner Dashboard</h1>
+            <nav>
+                <a href="index.html">← Back to Introduction</a>
+                <a href="catalog.html">View Catalog</a>
+                <a href="whatsapp-demo.html">View Chat Demo</a>
+                <a href="../index.html">All Demos</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('overview')">Overview</button>
+            <button class="tab" onclick="switchTab('products')">Product Management</button>
+            <button class="tab" onclick="switchTab('conversations')">Customer Conversations</button>
+            <button class="tab" onclick="switchTab('orders')">Orders</button>
+            <button class="tab" onclick="switchTab('preorders')">Preorders</button>
+        </div>
+
+        <!-- Overview Tab -->
+        <div id="tab-overview" class="tab-content active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Products</div>
+                    <div class="stat-value">6</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Products in Stock</div>
+                    <div class="stat-value">5</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Low Stock / Unavailable</div>
+                    <div class="stat-value">2</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">New Orders</div>
+                    <div class="stat-value">3</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Pending Preorders</div>
+                    <div class="stat-value">2</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Customer Conversations</div>
+                    <div class="stat-value">4</div>
+                </div>
+            </div>
+            <div class="section">
+                <div class="section-header">
+                    <h2>Quick Overview</h2>
+                </div>
+                <div style="padding: 1.25rem;">
+                    <p style="color: #475467; line-height: 1.7;">This dashboard helps you manage your wig business easily. Use the tabs above to add products, talk to customers, manage orders, and handle preorders. You can take over any customer chat to talk to them personally when needed.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Tab -->
+        <div id="tab-products" class="tab-content">
+            <div class="section">
+                <div class="section-header">
+                    <h2>Product Management</h2>
+                    <button class="btn" onclick="openProductModal()">+ Add Product</button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Price (₦)</th>
+                                <th>Lengths</th>
+                                <th>Texture</th>
+                                <th>Stock</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Bone Straight Wig</strong></td>
+                                <td>85,000</td>
+                                <td>16",18",20",24",26"</td>
+                                <td>Bone Straight</td>
+                                <td>15</td>
+                                <td><span class="status-badge status-instock">In Stock</span></td>
+                                <td><button class="btn btn-secondary small-btn" onclick="openProductModal()">Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Body Wave Wig</strong></td>
+                                <td>95,000</td>
+                                <td>18",20",22",24"</td>
+                                <td>Body Wave</td>
+                                <td>8</td>
+                                <td><span class="status-badge status-instock">In Stock</span></td>
+                                <td><button class="btn btn-secondary small-btn" onclick="openProductModal()">Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Deep Curly Wig</strong></td>
+                                <td>110,000</td>
+                                <td>16",18",20"</td>
+                                <td>Deep Curly</td>
+                                <td>3</td>
+                                <td><span class="status-badge status-lowstock">Low Stock</span></td>
+                                <td><button class="btn btn-secondary small-btn" onclick="openProductModal()">Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Classic Bob Wig</strong></td>
+                                <td>65,000</td>
+                                <td>10",12",14"</td>
+                                <td>Straight</td>
+                                <td>12</td>
+                                <td><span class="status-badge status-instock">In Stock</span></td>
+                                <td><button class="btn btn-secondary small-btn" onclick="openProductModal()">Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Honey Blonde Wig</strong></td>
+                                <td>125,000</td>
+                                <td>18",20",22",24"</td>
+                                <td>Body Wave</td>
+                                <td>0</td>
+                                <td><span class="status-badge status-out">Out of Stock</span></td>
+                                <td><button class="btn btn-secondary small-btn" onclick="openProductModal()">Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Loose Wave Wig</strong></td>
+                                <td>98,000</td>
+                                <td>20",22",24",26"</td>
+                                <td>Loose Wave</td>
+                                <td>10</td>
+                                <td><span class="status-badge status-instock">In Stock</span></td>
+                                <td><button class="btn btn-secondary small-btn" onclick="openProductModal()">Edit</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conversations Tab -->
+        <div id="tab-conversations" class="tab-content">
+            <div class="section">
+                <div class="section-header">
+                    <h2>Customer Conversations</h2>
+                </div>
+                <div>
+                    <div class="chat-item">
+                        <div class="chat-info">
+                            <h4>💬 Sarah Johnson</h4>
+                            <p>Interested in 24" Bone Straight Wig - Last message: 2 hours ago</p>
+                            <span class="status-badge status-new">Assistant in control</span>
+                        </div>
+                        <div class="chat-actions">
+                            <button class="btn small-btn" onclick="openChat('sarah')">Open Chat</button>
+                            <button class="btn btn-secondary small-btn" onclick="takeOverChat('sarah')">Take Over Chat</button>
+                        </div>
+                    </div>
+                    <div id="chat-sarah" class="chat-detail">
+                        <div class="chat-messages">
+                            <div class="chat-msg customer">Hi! I'm interested in a 24-inch bone straight wig</div>
+                            <div class="chat-msg assistant">Yes! We have 24-inch Bone Straight wigs available 😊<br><br>Here's what we have: Bone Straight Wig - ₦85,000<br><br>Would you like me to help you order this?</div>
+                            <div class="chat-msg customer">How much does it cost for 24 inches?</div>
+                            <div class="chat-msg assistant">The 24" Bone Straight Wig is ₦85,000. We have it in stock (15 available). Would you like to place an order?</div>
+                        </div>
+                        <div class="chat-input-row">
+                            <input type="text" class="chat-input" placeholder="Type your reply...">
+                            <button class="btn small-btn" onclick="sendOwnerMsg('sarah')">Send</button>
+                            <button class="btn btn-secondary small-btn" onclick="resumeAssistant('sarah')">Return to Assistant</button>
+                        </div>
+                    </div>
+
+                    <div class="chat-item">
+                        <div class="chat-info">
+                            <h4>💬 Grace Adebayo</h4>
+                            <p>Asking about curly wigs - Last message: 4 hours ago</p>
+                            <span class="status-badge status-new">Assistant in control</span>
+                        </div>
+                        <div class="chat-actions">
+                            <button class="btn small-btn" onclick="openChat('grace')">Open Chat</button>
+                            <button class="btn btn-secondary small-btn" onclick="takeOverChat('grace')">Take Over Chat</button>
+                        </div>
+                    </div>
+                    <div id="chat-grace" class="chat-detail">
+                        <div class="chat-messages">
+                            <div class="chat-msg customer">Show me your curly wigs</div>
+                            <div class="chat-msg assistant">We have beautiful curly wigs! Here's our Deep Curly Wig - ₦110,000 (Deep Curly, 13x4 Lace Front)</div>
+                        </div>
+                        <div class="chat-input-row">
+                            <input type="text" class="chat-input" placeholder="Type your reply...">
+                            <button class="btn small-btn">Send</button>
+                            <button class="btn btn-secondary small-btn">Return to Assistant</button>
+                        </div>
+                    </div>
+
+                    <div class="chat-item">
+                        <div class="chat-info">
+                            <h4>💬 Fatima Mohammed</h4>
+                            <p>Preorder inquiry - Last message: 1 day ago</p>
+                            <span class="status-badge status-pending">Assistant in control</span>
+                        </div>
+                        <div class="chat-actions">
+                            <button class="btn small-btn" onclick="openChat('fatima')">Open Chat</button>
+                            <button class="btn btn-secondary small-btn" onclick="takeOverChat('fatima')">Take Over Chat</button>
+                        </div>
+                    </div>
+
+                    <div class="chat-item">
+                        <div class="chat-info">
+                            <h4>💬 Blessing Okonkwo</h4>
+                            <p>Want to place order - Last message: 3 hours ago</p>
+                            <span class="status-badge status-confirmed">Owner in control</span>
+                        </div>
+                        <div class="chat-actions">
+                            <button class="btn small-btn" onclick="openChat('blessing')">Open Chat</button>
+                            <button class="btn btn-secondary small-btn" onclick="resumeAssistant('blessing')">Return to Assistant</button>
+                        </div>
+                    </div>
+                    <div id="chat-blessing" class="chat-detail">
+                        <div class="chat-messages">
+                            <div class="chat-msg customer">How can I place an order?</div>
+                            <div class="chat-msg assistant">Great! To place an order, I need which wig, preferred length, color, your name, delivery address, and phone number.</div>
+                            <div class="chat-msg customer">I want the Body Wave Wig, 22 inches, Natural Black. My name is Blessing Okonkwo, address: 123 Lagos Street, Ikeja, Lagos. Phone: 08012345678</div>
+                            <div class="chat-msg owner">Got it Blessing! Let me confirm: Body Wave Wig 22" Natural Black - ₦95,000. Delivery to 123 Lagos Street, Ikeja, Lagos. Is this correct?</div>
+                            <div class="chat-msg customer">Yes that's correct</div>
+                        </div>
+                        <div class="chat-input-row">
+                            <input type="text" class="chat-input" placeholder="Type your reply...">
+                            <button class="btn small-btn">Send</button>
+                            <button class="btn btn-secondary small-btn" onclick="resumeAssistant('blessing')">Return to Assistant</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orders Tab -->
+        <div id="tab-orders" class="tab-content">
+            <div class="section">
+                <div class="section-header">
+                    <h2>Orders</h2>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Products</th>
+                                <th>Total</th>
+                                <th>Order Status</th>
+                                <th>Payment Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#ORD-001</td>
+                                <td>Blessing Okonkwo<br><small>08012345678</small></td>
+                                <td>Body Wave Wig 22" Natural Black (1)</td>
+                                <td>₦95,000</td>
+                                <td><span class="status-badge status-confirmed">Confirmed</span></td>
+                                <td><span class="status-badge status-pending">Pending Verification</span></td>
+                                <td><button class="btn btn-secondary small-btn">Update Status</button></td>
+                            </tr>
+                            <tr>
+                                <td>#ORD-002</td>
+                                <td>Sarah Johnson<br><small>08098765432</small></td>
+                                <td>Bone Straight Wig 24" Natural Black (1)</td>
+                                <td>₦85,000</td>
+                                <td><span class="status-badge status-new">New</span></td>
+                                <td><span class="status-badge status-pending">Pending Verification</span></td>
+                                <td><button class="btn btn-secondary small-btn">Update Status</button></td>
+                            </tr>
+                            <tr>
+                                <td>#ORD-003</td>
+                                <td>Grace Adebayo<br><small>08123456789</small></td>
+                                <td>Deep Curly Wig 18" Natural Black (1)</td>
+                                <td>₦110,000</td>
+                                <td><span class="status-badge status-pending">Processing</span></td>
+                                <td><span class="status-badge status-pending">Pending Verification</span></td>
+                                <td><button class="btn btn-secondary small-btn">Update Status</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Preorders Tab -->
+        <div id="tab-preorders" class="tab-content">
+            <div class="section">
+                <div class="section-header">
+                    <h2>Preorder Requests</h2>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Request ID</th>
+                                <th>Customer</th>
+                                <th>Requested Wig</th>
+                                <th>Details</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#PRE-001</td>
+                                <td>Fatima Mohammed<br><small>08055556666</small></td>
+                                <td>Honey Blonde Wig</td>
+                                <td>Length: 20", Color: Honey Blonde<br>Budget: ₦130,000</td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                                <td>
+                                    <button class="btn small-btn" style="margin-bottom: 0.25rem;">Accept</button><br>
+                                    <button class="btn btn-secondary small-btn">Decline</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#PRE-002</td>
+                                <td>Adunni Bakare<br><small>08044443333</small></td>
+                                <td>Bone Straight Wig</td>
+                                <td>Length: 30", Color: Natural Black<br>Note: Extra long length needed</td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                                <td>
+                                    <button class="btn small-btn" style="margin-bottom: 0.25rem;">Accept</button><br>
+                                    <button class="btn btn-secondary small-btn">Decline</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add/Edit Product</h3>
+                <button class="modal-close" onclick="closeProductModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Product Name</label>
+                    <input type="text" placeholder="e.g., Bone Straight Wig">
+                </div>
+                <div class="form-group">
+                    <label>Price (₦)</label>
+                    <input type="number" placeholder="85000">
+                </div>
+                <div class="form-group">
+                    <label>Available Lengths (comma separated)</label>
+                    <input type="text" placeholder="16, 18, 20, 24, 26">
+                </div>
+                <div class="form-group">
+                    <label>Hair Texture</label>
+                    <input type="text" placeholder="Bone Straight">
+                </div>
+                <div class="form-group">
+                    <label>Lace Type</label>
+                    <input type="text" placeholder="13x4 Lace Front">
+                </div>
+                <div class="form-group">
+                    <label>Available Colors (comma separated)</label>
+                    <input type="text" placeholder="Natural Black, Dark Brown">
+                </div>
+                <div class="form-group">
+                    <label>Stock Quantity</label>
+                    <input type="number" placeholder="15">
+                </div>
+                <div class="form-group">
+                    <label>Product Description</label>
+                    <textarea placeholder="Short description of the wig"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Product Image URL</label>
+                    <input type="text" placeholder="https://example.com/image.jpg">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeProductModal()">Cancel</button>
+                <button class="btn" onclick="saveProduct()">Save Product</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabName) {
+            const tabs = document.querySelectorAll('.tab');
+            const contents = document.querySelectorAll('.tab-content');
+            tabs.forEach(t => t.classList.remove('active'));
+            contents.forEach(c => c.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById('tab-' + tabName).classList.add('active');
+        }
+
+        function openProductModal() {
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').classList.remove('active');
+        }
+
+        function saveProduct() {
+            alert('Product saved successfully! (Demo)');
+            closeProductModal();
+        }
+
+        function openChat(name) {
+            const chatDiv = document.getElementById('chat-' + name);
+            if (chatDiv.style.display === 'block') {
+                chatDiv.style.display = 'none';
+                chatDiv.classList.remove('active');
+            } else {
+                document.querySelectorAll('.chat-detail').forEach(c => {
+                    c.style.display = 'none';
+                    c.classList.remove('active');
+                });
+                chatDiv.style.display = 'block';
+                chatDiv.classList.add('active');
+            }
+        }
+
+        function takeOverChat(name) {
+            alert('You have taken over the chat with ' + name + '! The assistant will stop replying automatically.');
+            const badge = event.target.closest('.chat-item').querySelector('.status-badge');
+            badge.textContent = 'Owner in control';
+            badge.className = 'status-badge status-confirmed';
+            const chatDiv = document.getElementById('chat-' + name);
+            chatDiv.style.display = 'block';
+            chatDiv.classList.add('active');
+        }
+
+        function resumeAssistant(name) {
+            alert('Control returned to the assistant.');
+            const badge = event.target.closest('.chat-item').querySelector('.status-badge');
+            badge.textContent = 'Assistant in control';
+            badge.className = 'status-badge status-new';
+        }
+
+        function sendOwnerMsg(name) {
+            alert('Message sent as owner! (Demo)');
+        }
+    </script>
+</body>
+</html>
